@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	"BetterApp/internal/http"
@@ -35,6 +35,7 @@ func Run() error {
 	return nil
 
 }
+
 func main() {
 	fmt.Println("Betterstack Go REST API Tutorial")
 	if err := Run(); err != nil {
