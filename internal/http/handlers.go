@@ -15,7 +15,6 @@ import (
 type Handler struct {
 	Router *mux.Router
 	Users  users.UserService
-
 	Server *http.Server
 }
 
