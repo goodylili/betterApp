@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  my-postgres:
+    image: postgres:15
+    container_name: db
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - '5433:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: go-app
+    ports:
+      - '8081:8080'
+    volumes:
+      - .:/app
+    environment:
+      - DB_HOST=my-postgres
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - SSL_MODE=${SSL_MODE}
+
+    depends_on:
+      - my-postgres
+
+
+volumes:
+  pg_data:

@@ -22,5 +22,8 @@ COPY --from=build /app/server .
 # Expose the port your application will listen on (adjust as needed)
 EXPOSE 8080
 
+
+
+
 # Run your Go application
-CMD ["./server"]
+ENTRYPOINT ["./server"]
