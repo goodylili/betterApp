@@ -1,4 +1,3 @@
-# Build stage
 FROM golang:1.20-alpine AS build
 
 # Set the working directory inside the container
@@ -9,6 +8,7 @@ COPY . .
 
 # Build the Go application
 RUN go build -o server ./cmd/server
+
 
 # Final stage
 FROM alpine:latest
@@ -22,8 +22,10 @@ COPY --from=build /app/server .
 # Expose the port your application will listen on (adjust as needed)
 EXPOSE 8080
 
+RUN CHMOD a+x
 
+# Set the application label
+LABEL name="my-go-app" version="1.0.0"
 
-
-# Run your Go application
-ENTRYPOINT ["./server"]
+# Start the server
+CMD ["./server"]
